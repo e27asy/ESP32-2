@@ -24,10 +24,7 @@ Adafruit_ILI9341 tft(
 #define DHT_PIN   13
 #define DHT_TYPE  DHT11
 
-DHT dht(
-  DHT_PIN,
-  DHT_TYPE
-);
+DHT dht( DHT_PIN, DHT_TYPE);
 
 void setup()
 {
@@ -50,10 +47,7 @@ void setup()
   // Landscape
   tft.setRotation(3);
 
-  tft.fillScreen(
-    ILI9341_BLACK
-  );
-
+  tft.fillScreen(ILI9341_BLACK ); // ล้างจอ
 
   // -------------------------------
   // DHT11
@@ -61,14 +55,11 @@ void setup()
 
   dht.begin();
 
-
   // -------------------------------
   // Start Screen
   // -------------------------------
 
-  tft.setTextColor(
-    ILI9341_WHITE
-  );
+  tft.setTextColor(ILI9341_WHITE);
 
   tft.setTextSize(2);
 
@@ -77,15 +68,11 @@ void setup()
     100
   );
 
-  tft.println(
-    "DHT11 SENSOR"
-  );
+  tft.println("DHT11 SENSOR");
 
   delay(2000);
 
-  tft.fillScreen(
-    ILI9341_BLACK
-  );
+  tft.fillScreen( ILI9341_BLACK);
 }
 
 
@@ -94,15 +81,10 @@ void setup()
 // DISPLAY SENSOR DATA
 // =====================================================
 
-void showSensorData(
-  float temperature,
-  float humidity
-)
+void showSensorData( float temperature,float humidity)
 {
   // ล้างจอ
-  tft.fillScreen(
-    ILI9341_BLACK
-  );
+  tft.fillScreen(ILI9341_BLACK);
 
 
   // ===================================================
@@ -118,9 +100,7 @@ void showSensorData(
   );
 
 
-  tft.setTextColor(
-    ILI9341_WHITE
-  );
+  tft.setTextColor( ILI9341_WHITE);
 
   tft.setTextSize(2);
 
@@ -129,18 +109,14 @@ void showSensorData(
     10
   );
 
-  tft.println(
-    "ENVIRONMENT"
-  );
+  tft.println("ENVIRONMENT");
 
 
   // ===================================================
   // TEMPERATURE
   // ===================================================
 
-  tft.setTextColor(
-    ILI9341_YELLOW
-  );
+  tft.setTextColor( ILI9341_YELLOW );
 
   tft.setTextSize(2);
 
@@ -149,14 +125,10 @@ void showSensorData(
     65
   );
 
-  tft.println(
-    "TEMPERATURE"
-  );
+  tft.println("TEMPERATURE");
 
 
-  tft.setTextColor(
-    ILI9341_WHITE
-  );
+  tft.setTextColor(ILI9341_WHITE );
 
   tft.setTextSize(4);
 
@@ -165,26 +137,19 @@ void showSensorData(
     95
   );
 
-  tft.print(
-    temperature,
-    1
-  );
+  tft.print( temperature, 1);
 
 
   tft.setTextSize(2);
 
-  tft.print(
-    " C"
-  );
+  tft.print(" C");
 
 
   // ===================================================
   // HUMIDITY
   // ===================================================
 
-  tft.setTextColor(
-    ILI9341_CYAN
-  );
+  tft.setTextColor( ILI9341_CYAN );
 
   tft.setTextSize(2);
 
@@ -193,14 +158,9 @@ void showSensorData(
     145
   );
 
-  tft.println(
-    "HUMIDITY"
-  );
+  tft.println("HUMIDITY");
 
-
-  tft.setTextColor(
-    ILI9341_WHITE
-  );
+  tft.setTextColor( ILI9341_WHITE);
 
   tft.setTextSize(4);
 
@@ -209,27 +169,18 @@ void showSensorData(
     175
   );
 
-  tft.print(
-    humidity,
-    1
-  );
-
+  tft.print( humidity, 1);
 
   tft.setTextSize(2);
 
-  tft.print(
-    " %"
-  );
+  tft.print( " %");
 
 
   // ===================================================
   // HUMIDITY BAR
   // ===================================================
 
-  int barWidth =
-    map(
-      (int)humidity,0,100,0,280);
-
+  int barWidth =map( (int)humidity,0,100,0,280);
 
   // จำกัดค่า
   if (barWidth < 0)
@@ -267,14 +218,9 @@ void showSensorData(
 
 void showError()
 {
-  tft.fillScreen(
-    ILI9341_BLACK
-  );
+  tft.fillScreen(ILI9341_BLACK);
 
-
-  tft.setTextColor(
-    ILI9341_RED
-  );
+  tft.setTextColor(ILI9341_RED);
 
   tft.setTextSize(2);
 
@@ -283,93 +229,58 @@ void showError()
     80
   );
 
-  tft.println(
-    "DHT11 ERROR"
-  );
+  tft.println( "DHT11 ERROR" );
 
 
-  tft.setTextColor(
-    ILI9341_WHITE
-  );
+  tft.setTextColor(ILI9341_WHITE);
 
   tft.setCursor(
     35,
     120
   );
 
-  tft.println(
-    "Check sensor"
-  );
+  tft.println("Check sensor");
 
   tft.setCursor(
     35,
     150
   );
 
-  tft.println(
-    "and wiring"
-  );
+  tft.println("and wiring");
 }
 
 void loop()
 {
 // อ่านค่า DHT11
-  float humidity =
-    dht.readHumidity();
+  float humidity =dht.readHumidity();
 
-  float temperature =
-    dht.readTemperature();
+  float temperature = dht.readTemperature();
 
 
   // ตรวจสอบค่าผิดพลาด
-  if (
-    isnan(humidity) ||
-    isnan(temperature)
-  )
-  {
-    Serial.println(
-      "DHT11 Read Error!"
-    );
-
+  if ( isnan(humidity) || isnan(temperature)){
+    Serial.println("DHT11 Read Error!" );
     showError();
-
-    delay(2000);
-
+     delay(2000);
     return;
   }
 
 
   // Serial Monitor
-  Serial.print(
-    "Temperature: "
-  );
+  Serial.print("Temperature: ");
 
-  Serial.print(
-    temperature,
-    1
-  );
+  Serial.print(temperature, 1 );
 
-  Serial.print(
-    " C   Humidity: "
-  );
+  Serial.print(" C   Humidity: ");
 
-  Serial.print(
-    humidity,
-    1
-  );
+  Serial.print(humidity, 1 );
 
-  Serial.println(
-    " %"
-  );
+  Serial.println(" %");
 
 
   // แสดงบน TFT
-  showSensorData(
-    temperature,
-    humidity
-  );
-
+  showSensorData(temperature,humidity );
 
   // DHT11 ไม่ควรอ่านเร็วเกินไป
-  delay(2000);
+  delay(5000);
 }
